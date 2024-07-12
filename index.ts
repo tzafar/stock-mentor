@@ -1,37 +1,35 @@
-
 let abc: number = 10;
 console.log(abc);
 
 interface User {
-    name: string,
-    age: number 
+  name: string;
+  age: number;
 }
 
-let user: User = {age: 10, name: 'Toseef'}
+let user: User = { age: 10, name: 'Toseef' };
 
-console.log({user})
+console.log({ user });
 
 class Animal {
-    private name: string;
-    private breed: string;
-    
-    constructor(name: string, breed: string) {
-        this.name = name;
-        this.breed = breed;
-    }
+  private name: string;
+  private breed: string;
 
-    move(distance: number){
-        console.log(`${this.name} has moved ${distance} meters`)
-    }
+  constructor(name: string, breed: string) {
+    this.name = name;
+    this.breed = breed;
+  }
+
+  move(distance: number) {
+    console.log(`${this.name} has moved ${distance} meters`);
+  }
 }
 
 let lili: Animal = new Animal('Lili', 'Bandle');
 lili.move(10);
 
 function sayWhoIam<T>(breed: T): T {
-    return breed;
+  return breed;
 }
 
 console.log(sayWhoIam<number>(2));
-console.log(sayWhoIam<string>("String"));
-
+console.log(sayWhoIam<string>('String'));

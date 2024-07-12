@@ -1,6 +1,6 @@
-import  Redis  from "ioredis";
+import Redis from 'ioredis';
 
 export default new Redis({
-    host: 'localhost',
-    port: 6379,
-  });
+  host: 'localhost',
+  port: 6379,
+});

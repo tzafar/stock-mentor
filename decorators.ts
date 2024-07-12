@@ -27,20 +27,20 @@ Example:
 typescript
 Copy code*/
 function sealed(constructor: Function) {
-    console.log('Sealing the constructor');
-    Object.seal(constructor);
-    Object.seal(constructor.prototype);
+  console.log('Sealing the constructor');
+  Object.seal(constructor);
+  Object.seal(constructor.prototype);
 }
 
 @sealed
 class Greeter {
-    greeting: string;
-    constructor(message: string) {
-        this.greeting = message;
-    }
-    greet() {
-        return "Hello, " + this.greeting;
-    }
+  greeting: string;
+  constructor(message: string) {
+    this.greeting = message;
+  }
+  greet() {
+    return 'Hello, ' + this.greeting;
+  }
 }
 /*In this example, the @sealed decorator will seal both the constructor and its prototype, preventing new properties from being added to them.
 
@@ -52,9 +52,9 @@ Example:
 typescript
 Copy code*/
 function enumerable(value: boolean) {
-    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-        descriptor.enumerable = value;
-    };
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    descriptor.enumerable = value;
+  };
 }
 
 // class Greeter {
@@ -78,33 +78,33 @@ Example of Property Decorator:
 typescript
 Copy code*/
 function format(formatString: string) {
-    return function (target: any, propertyKey: string) {
-        let value: string;
+  return function (target: any, propertyKey: string) {
+    let value: string;
 
-        const getter = function () {
-            return formatString.replace("%s", value);
-        };
-
-        const setter = function (newVal: string) {
-            value = newVal;
-        };
-
-        Object.defineProperty(target, propertyKey, {
-            get: getter,
-            set: setter,
-            enumerable: true,
-            configurable: true
-        });
+    const getter = function () {
+      return formatString.replace('%s', value);
     };
+
+    const setter = function (newVal: string) {
+      value = newVal;
+    };
+
+    Object.defineProperty(target, propertyKey, {
+      get: getter,
+      set: setter,
+      enumerable: true,
+      configurable: true,
+    });
+  };
 }
 
 class Person {
-    @format("Hello, %s")
-    name: string;
+  @format('Hello, %s')
+  name: string;
 
-    constructor(name: string) {
-        this.name = name;
-    }
+  constructor(name: string) {
+    this.name = name;
+  }
 }
 /*In this example, the @format decorator changes how the name property is set and retrieved, incorporating a string format.
 
@@ -116,18 +116,18 @@ Example:
 typescript
 Copy code*/
 function logParameter(target: any, key: string, index: number) {
-    var metadataKey = `log_${key}_parameters`;
-    if (Array.isArray(target[metadataKey])) {
-        target[metadataKey].push(index);
-    } else {
-        target[metadataKey] = [index];
-    }
+  var metadataKey = `log_${key}_parameters`;
+  if (Array.isArray(target[metadataKey])) {
+    target[metadataKey].push(index);
+  } else {
+    target[metadataKey] = [index];
+  }
 }
 
 class Cow {
-    greet(@logParameter message: string) {
-        console.log(message);
-    }
+  greet(@logParameter message: string) {
+    console.log(message);
+  }
 }
 /*This @logParameter decorator logs information about the parameter index when a method is called.
 
@@ -136,40 +136,35 @@ Decorators provide powerful and expressive features in TypeScript, allowing deve
 */
 
 function firstDecorator() {
-    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-        console.log(`second decorator called on ${target} its type is ${typeof target} propertyKey is ${propertyKey} property descriptor is ${descriptor}`);
-    };
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    console.log(`second decorator called on ${target} its type is ${typeof target} propertyKey is ${propertyKey} property descriptor is ${descriptor}`);
+  };
 }
 
 function secondDecorator() {
-    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-        console.log(`second decorator called on ${target} its type is ${typeof target} propertyKey is ${propertyKey} property descriptor is ${descriptor}`);
-    }
+  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+    console.log(`second decorator called on ${target} its type is ${typeof target} propertyKey is ${propertyKey} property descriptor is ${descriptor}`);
+  };
 }
 
-
 class DecoratorTest {
-
-    @firstDecorator()
-    @secondDecorator()
-    sayMyName() {
-
-    }
+  @firstDecorator()
+  @secondDecorator()
+  sayMyName() {}
 }
 
 let decoratorTest: DecoratorTest = new DecoratorTest();
 decoratorTest.sayMyName();
 
 function salamGreetings(target: any, methodKey: string, parameterIndex: number) {
-    console.log(`The target is ${JSON.stringify(target)} the methodKey is ${methodKey} the parameterIndex is ${parameterIndex}`)
-    target = 'Assalam-o-Alaikum' + target.value;
+  console.log(`The target is ${JSON.stringify(target)} the methodKey is ${methodKey} the parameterIndex is ${parameterIndex}`);
+  target = 'Assalam-o-Alaikum' + target.value;
 }
 
 class Banda {
-    sayGreetingsWith(@salamGreetings name: string) {
-        return name;
-    }
+  sayGreetingsWith(@salamGreetings name: string) {
+    return name;
+  }
 }
-
 
 console.log(new Banda().sayGreetingsWith('Toseef'));
