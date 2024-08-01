@@ -5,7 +5,7 @@ const db = new sqlite3.Database('./chinook.db');
 
 console.log('Setting up table...');
 db.serialize(() => {
-  db.run('DROP TABLE users');
+  db.run('DROP TABLE IF EXISTS users');
   db.run('CREATE TABLE users(userId number, username text)');
   db.run("INSERT INTO users (userId,username) VALUES  (1, 'Toseef'), (2, 'Zafar'), (3, 'Mirza')");
 });
